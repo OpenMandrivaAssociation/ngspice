@@ -1,15 +1,14 @@
 %define __libtoolize	/bin/true
 
 %define major		0
-%define apiver		27
 %define	docname		ngspice-doc
-%define libname		%mklibname %{name} %{apiver} %{major}
+%define libname		%mklibname %{name} %{major}
 %define develname	%mklibname %{name} -d
 
 Summary:	Mixed Mode - Mixed Level Circuit Simulator Based On Berkley's spice3f5
 Name:		ngspice
 Version:	30
-Release:	1
+Release:	2
 License:	GPL and GPLv2 and LGPLv2 and BSD
 Group:		System/Libraries
 Url:		http://ngspice.sourceforge.net/index.html
@@ -58,7 +57,7 @@ applications which will use %{name}.
 %build
 # Cannot enable CIDER and adms due to there licences
 # see https://sourceforge.net/p/ngspice/ngspice/ci/master/tree/COPYING
-%configure2_5x \
+%configure \
 	--with-ngshared \
 	--enable-xspice \
 	--with-readline=yes \
@@ -84,4 +83,3 @@ applications which will use %{name}.
 %{_libdir}/lib*.so
 %{_includedir}/*
 %{_libdir}/pkgconfig/*.pc
-
