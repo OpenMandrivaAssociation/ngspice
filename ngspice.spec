@@ -8,7 +8,7 @@
 
 Summary:	Mixed Mode - Mixed Level Circuit Simulator Based On Berkley's spice3f5
 Name:		ngspice
-Version:	29
+Version:	30
 Release:	1
 License:	GPL and GPLv2 and LGPLv2 and BSD
 Group:		System/Libraries
