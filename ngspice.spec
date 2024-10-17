@@ -11,7 +11,7 @@ Version:	30
 Release:	2
 License:	GPL and GPLv2 and LGPLv2 and BSD
 Group:		System/Libraries
-Url:		http://ngspice.sourceforge.net/index.html
+Url:		https://ngspice.sourceforge.net/index.html
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:	http://downloads.sourceforge.net/%{name}/%{docname}-%{version}.tar.gz
 Source100:	%{name}.rpmlintrc
