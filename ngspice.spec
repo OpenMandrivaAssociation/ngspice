@@ -1,25 +1,34 @@
 %define __libtoolize	/bin/true
 
-%define major		0
+%define major 44	
+%define minor 2
 %define	docname		ngspice-doc
-%define libname		%mklibname %{name} %{major}
+%define libname		%mklibname %{name}  
 %define develname	%mklibname %{name} -d
+%define _disable_ld_no_undefined 1
 
 Summary:	Mixed Mode - Mixed Level Circuit Simulator Based On Berkley's spice3f5
 Name:		ngspice
-Version:	30
-Release:	2
+Version:    %{major}%{?minor:.%minor}	
+Release:	1
+# See COPYING for more detail concerning license
 License:	GPL and GPLv2 and LGPLv2 and BSD
 Group:		System/Libraries
 Url:		https://ngspice.sourceforge.net/index.html
-Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
-Source1:	http://downloads.sourceforge.net/%{name}/%{docname}-%{version}.tar.gz
+Source0:    https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{major}%{?minor:.%minor}/ngspice-%{major}%{?minor:.%minor}.tar.gz
 Source100:	%{name}.rpmlintrc
 
-BuildRequires:	xaw-devel
 BuildRequires:	bison
 BuildRequires:	flex
-BuildRequires:	readline-devel
+BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(fontconfig)
+BuildRequires:	pkgconfig(readline)
+BuildRequires:  pkgconfig(x11)
+BuildRequires:	pkgconfig(xaw7)
+BuildRequires:  pkgconfig(xext)
+BuildRequires:  pkgconfig(xft)
+BuildRequires:  pkgconfig(xmu)
+BuildRequires:  pkgconfig(xrender)
 
 %description
 Ngspice is a mixed-level/mixed-signal circuit simulator. Its code is 
@@ -37,7 +46,7 @@ Group:		System/Libraries
 
 %description -n %{libname}
 This package contains the library needed to run programs dynamically
-linked with %{name}.
+linked with %{name}
 
 %package -n %{develname}
 Summary:	Headers for developing programs that will use %{name}
@@ -51,35 +60,58 @@ Provides:	%{name}-devel = %{version}-%{release}
 This package contains the headers that programmers will need to develop
 applications which will use %{name}.
 
+
 %prep
-%setup -q -a 1
+%setup -a 0 
+echo "The build directory is %{builddir}"
 
 %build
-# Cannot enable CIDER and adms due to there licences
-# see https://sourceforge.net/p/ngspice/ngspice/ci/master/tree/COPYING
+mkdir _build
+mkdir _build_lib
+#
+cd %{builddir}/%{name}-%{version}/_build
+#
+CONFIGURE_TOP=%{builddir}/%{name}-%{version} 
 %configure \
-	--with-ngshared \
-	--enable-xspice \
-	--with-readline=yes \
-	--disable-cider \
-	--disable-adms \
-	--disable-debug
-%make_build
+    --with-x                                \
+    --enable-xspice                         \
+    --enable-openmp                         \
+    --enable-cider      
+#
+%make_build 
+#
+cd %{builddir}/%{name}-%{version}/_build_lib
+#
+%configure                                  \
+    --with-ngshared                         \
+    --enable-xspice                         \
+    --enable-openmp                         \
+    --enable-cider
+%make_build 
+    
+
 
 %install
+cd /%{builddir}/%{name}-%{version}/_build
 %make_install
+cd /%{builddir}/%{name}-%{version}/_build_lib
+%make_install
+
 
 %files
 %{_bindir}/*
 %{_mandir}/man1/*
 %{_datadir}/ngspice/scripts/*
-%{_datadir}/ngspice/dlmain.c
+%exclude %{_datadir}/ngspice/scripts/src/*
 
 %files -n %{libname}
-%{_libdir}/lib*.so.%{major}*
+%{_libdir}/lib*.so.*
 %{_libdir}/ngspice/*
 
 %files -n %{develname}
 %{_libdir}/lib*.so
 %{_includedir}/*
 %{_libdir}/pkgconfig/*.pc
+%{_datadir}/ngspice/scripts/src/*
+
+
