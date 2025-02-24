@@ -43,6 +43,7 @@ page.
 %package -n %{libname}
 Summary:	Main library for %{name}
 Group:		System/Libraries
+Provides:   %{libname} = %{version}-%{release}
 Obsoletes:  %{libname}0 <= 30
 
 %description -n %{libname}
