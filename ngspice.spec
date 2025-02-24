@@ -10,7 +10,7 @@
 Summary:	Mixed Mode - Mixed Level Circuit Simulator Based On Berkley's spice3f5
 Name:		ngspice
 Version:    %{major}%{?minor:.%minor}	
-Release:	1
+Release:	2
 # See COPYING for more detail concerning license
 License:	GPL and GPLv2 and LGPLv2 and BSD
 Group:		System/Libraries
@@ -43,6 +43,8 @@ page.
 %package -n %{libname}
 Summary:	Main library for %{name}
 Group:		System/Libraries
+Provides:   %{libname} = %{version}-%{release}
+Obsoletes:  %{libname}0 <= 30
 
 %description -n %{libname}
 This package contains the library needed to run programs dynamically
