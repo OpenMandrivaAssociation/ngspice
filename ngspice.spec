@@ -18,6 +18,11 @@ Url:		https://ngspice.sourceforge.net/index.html
 Source0:    https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{major}%{?minor:.%minor}/ngspice-%{major}%{?minor:.%minor}.tar.gz
 Source100:	%{name}.rpmlintrc
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	bison
 BuildRequires:	flex
 BuildRequires:  pkgconfig(freetype2)
