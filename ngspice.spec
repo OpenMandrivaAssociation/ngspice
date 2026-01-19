@@ -1,6 +1,6 @@
 %define __libtoolize	/bin/true
 
-%define major 44	
+%define major 45
 %define minor 2
 %define	docname		ngspice-doc
 %define libname		%mklibname %{name}  
@@ -10,7 +10,7 @@
 Summary:	Mixed Mode - Mixed Level Circuit Simulator Based On Berkley's spice3f5
 Name:		ngspice
 Version:    %{major}%{?minor:.%minor}	
-Release:	2
+Release:	1
 # See COPYING for more detail concerning license
 License:	GPL and GPLv2 and LGPLv2 and BSD
 Group:		System/Libraries
