@@ -1,7 +1,7 @@
 %define __libtoolize	/bin/true
 
-%define major 45
-%define minor 2
+%define major 46
+#%%define minor 0
 %define	docname		ngspice-doc
 %define libname		%mklibname %{name}  
 %define develname	%mklibname %{name} -d
@@ -9,12 +9,12 @@
 
 Summary:	Mixed Mode - Mixed Level Circuit Simulator Based On Berkley's spice3f5
 Name:		ngspice
-Version:    %{major}%{?minor:.%minor}	
+Version:    %{major}%{?minor:.%minor}
 Release:	1
 # See COPYING for more detail concerning license
-License:	GPL and GPLv2 and LGPLv2 and BSD
+License:	BSD-3-Clause AND GPL-2.0-or-later AND LGPL-2.1-or-later
 Group:		System/Libraries
-Url:		https://ngspice.sourceforge.net/index.html
+URL:		https://ngspice.sourceforge.net/index.html
 Source0:    https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{major}%{?minor:.%minor}/ngspice-%{major}%{?minor:.%minor}.tar.gz
 Source100:	%{name}.rpmlintrc
 
@@ -69,7 +69,7 @@ applications which will use %{name}.
 
 
 %prep
-%setup -a 0 
+%autosetup -a 0
 echo "The build directory is %{builddir}"
 
 %build
@@ -95,8 +95,6 @@ cd %{builddir}/%{name}-%{version}/_build_lib
     --enable-openmp                         \
     --enable-cider
 %make_build 
-    
-
 
 %install
 cd /%{builddir}/%{name}-%{version}/_build
@@ -106,19 +104,19 @@ cd /%{builddir}/%{name}-%{version}/_build_lib
 
 
 %files
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/%{name}
+%{_mandir}/man1/ngspice.*
 %{_datadir}/ngspice/scripts/*
 %exclude %{_datadir}/ngspice/scripts/src/*
 
 %files -n %{libname}
-%{_libdir}/lib*.so.*
+%{_libdir}/libngspice.so.*
 %{_libdir}/ngspice/*
 
 %files -n %{develname}
-%{_libdir}/lib*.so
-%{_includedir}/*
-%{_libdir}/pkgconfig/*.pc
+%{_includedir}/ngspice/*
+%{_libdir}/libngspice.so
+%{_libdir}/pkgconfig/ngspice.pc
 %{_datadir}/ngspice/scripts/src/*
 
 
